@@ -59,11 +59,10 @@ public class RequestServiceTest {
 	} 
 	
 	@Test
-	public void deleteBloodReq(BloodRequest bloodRequest) {
+	public void deleteBloodReq (BloodRequest bloodRequest){
 
 		assertTrue(rs.deleteBloodReq(bloodRequest));
+		
+		
 	}
-	
-
-	
 }
