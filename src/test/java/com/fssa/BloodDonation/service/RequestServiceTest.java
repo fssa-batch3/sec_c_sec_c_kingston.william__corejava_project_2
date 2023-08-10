@@ -14,7 +14,7 @@ import com.fssa.BloodDonation.model.BloodRequest;
 import com.fssa.BloodDonation.validator.BloodReqValidator;
 
 public class RequestServiceTest {
-r̥
+
 
 	RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
 	
