@@ -1,7 +1,7 @@
 package com.fssa.BloodDonation.validator;
 
 import java.time.LocalDate;
-import java.util.regex.Matcher;
+//import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.fssa.BloodDonation.enums.BloodGroup;
@@ -33,7 +33,7 @@ public class BloodReqValidator {
 		BloodRequest req = new BloodRequest();
 		for (BloodGroup grp : BloodGroup.values()) {
 			if (grp.value.equals(req.getBloodtype())) {
-				System.out.println("eneum and the user given value are matched");
+				throw new IllegalArgumentException("write the correct blood type");		
 			}
 		}
 		return true; 
@@ -60,14 +60,14 @@ throw new IllegalArgumentException ("type the correct description");
 	}
 
 	public static boolean validateReqDate(LocalDate reqDate) throws IllegalArgumentException {
-		
+		 
 		if(reqDate == null ) {
 			throw new IllegalArgumentException("type the correct reqDate");
 		}
 		if (reqDate.isBefore(MIN_DATE) ||reqDate.isAfter(MAX_DATE)) {
 			throw new IllegalArgumentException("type the correct reqDate");
 		}
-		return false;
+		return true;
 		 
 	}
 

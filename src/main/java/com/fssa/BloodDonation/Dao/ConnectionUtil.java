@@ -18,7 +18,7 @@ public class ConnectionUtil {
 	        } else {
 	            Dotenv env = Dotenv.load();
 	            url = env.get("DATABASE_HOST");
-	            userName = env.get("DATABASE_USERNAME");
+	            userName = env.get("DATABASE_USERNAME"); 
 	            passWord = env.get("DATABASE_PASSWORD");
 	        }
 
@@ -30,7 +30,7 @@ public class ConnectionUtil {
 	            throw new RuntimeException("Unable to connect to the database");
 	        }
 	        return con;
-	    }
+	    } 
 	
 
 }

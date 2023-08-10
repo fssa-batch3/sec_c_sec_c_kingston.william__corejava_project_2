@@ -14,7 +14,7 @@ import com.fssa.BloodDonation.model.BloodRequest;
 import com.fssa.BloodDonation.validator.BloodReqValidator;
 
 public class RequestServiceTest {
-
+r̥
 
 	RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
 	
@@ -26,10 +26,10 @@ public class RequestServiceTest {
 		
 		assertTrue(rs.createBloodReq(bloodRequest));
 
-	}
+	} 
 	
 	@Test
-	public void createBloodReqTestInvalid() {
+	public void createBloodReqTestInvalid() { 
 		
 		BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234562893",
 				LocalDate.parse("2023-10-12"), true, RequestStatus.OPEN, null);
@@ -47,7 +47,7 @@ public class RequestServiceTest {
 	}
 	
 	@Test
-	public void getAllBloodReq() {
+	public void getAllBloodReq() { 
 		ArrayList<BloodRequest> ar = rs.getAllBloodRequest();
 		
 		if(ar!=null) {
@@ -59,9 +59,9 @@ public class RequestServiceTest {
 	} 
 	
 	@Test
-	public void deleteBloodReq (BloodRequest bloodRequest){
+	public void deleteBloodReq (){
 
-		assertTrue(rs.deleteBloodReq(bloodRequest));
+		assertTrue(rs.deleteBloodReq(21));
 		
 		
 	}

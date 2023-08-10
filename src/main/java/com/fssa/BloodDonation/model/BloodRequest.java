@@ -119,20 +119,4 @@ public class BloodRequest {
 		return info; 
 	}
 
-	public static void main(String[] args) throws SQLException {
-
-		BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234567899",
-				LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null);
-
-		RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
-//		rs.dBloodReq(bloodRequest); 
-		
-//		new BloodRequestDao().deleteBloodReq(bloodRequest);
-    
-		ArrayList<BloodRequest> ar= rs.getAllBloodRequest();	
-
-		Logger.info(ar);
-		
-	}  
-
 }

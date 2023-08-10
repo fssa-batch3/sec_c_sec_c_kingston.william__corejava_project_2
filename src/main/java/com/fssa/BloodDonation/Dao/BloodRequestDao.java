@@ -16,7 +16,7 @@ import com.fssa.BloodDonation.model.BloodRequest;
 public class BloodRequestDao {
 	public static void createBloodReq(BloodRequest bloodCreate) {
 		// Write code here to get connection
-
+ 
 		// Try-with-resources block to automatically close the connection
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create insert statement
@@ -174,14 +174,14 @@ public class BloodRequestDao {
 	}
 
 //	delete
-	public static boolean deleteBloodReq(BloodRequest bloodReq) throws IllegalArgumentException {
+	public static boolean deleteBloodReq(int id) throws IllegalArgumentException {
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create the DELETE query
 			String deleteQuery = "DELETE FROM bloodrequest WHERE id=?";
 
 			try (PreparedStatement psmt = connection.prepareStatement(deleteQuery)) {
 				// Set the id as the parameter for the DELETE query
-				psmt.setInt(1, getIdByContactNo(bloodReq.getContactNo()));
+				psmt.setInt(1, id);
 
 				// Execute the delete statement and get the number of affected rows
 				int rowAffected = psmt.executeUpdate();

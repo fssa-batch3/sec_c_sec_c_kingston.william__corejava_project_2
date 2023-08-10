@@ -15,7 +15,7 @@ public class RequestService {
 	public RequestService(BloodReqValidator bloodReqValidator, BloodRequestDao requestDao) {
 		this.requestDao = requestDao; // Initialize the DAO reference
 		this.bloodReqValidator = bloodReqValidator; // Initialize the validator reference
-	}
+	} 
 
 	// Method to create a blood request
 	public boolean createBloodReq(BloodRequest bloodRequest) throws IllegalArgumentException {
@@ -50,9 +50,9 @@ public class RequestService {
 
 	}
         // Method to delete blood request
-	public boolean deleteBloodReq(BloodRequest bloodRequest) {
+	public boolean deleteBloodReq(int i) {
 
-		return requestDao.deleteBloodReq(bloodRequest);
+		return BloodRequestDao.deleteBloodReq(i);
 	}
 
 }
