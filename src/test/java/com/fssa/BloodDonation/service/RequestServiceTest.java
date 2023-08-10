@@ -18,12 +18,11 @@ public class RequestServiceTest {
 
 	RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
 	
+	BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234567121",
+			LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null);
 	@Test
 	public void createBloodReqTest() {
-		
-		BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234567120",
-				LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null);
-		
+
 		assertTrue(rs.createBloodReq(bloodRequest));
 
 	} 
@@ -61,8 +60,8 @@ public class RequestServiceTest {
 	@Test
 	public void deleteBloodReq (){
 
-		assertTrue(rs.deleteBloodReq(21));
+		assertTrue(rs.deleteBloodReq(bloodRequest));
 		
 		
-	}
+	} 
 }

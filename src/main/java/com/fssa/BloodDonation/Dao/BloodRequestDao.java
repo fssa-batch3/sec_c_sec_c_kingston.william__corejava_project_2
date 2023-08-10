@@ -174,14 +174,14 @@ public class BloodRequestDao {
 	}
 
 //	delete
-	public static boolean deleteBloodReq(int id) throws IllegalArgumentException {
+	public static boolean deleteBloodReq(BloodRequest bloodRequest) throws IllegalArgumentException {
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create the DELETE query
 			String deleteQuery = "DELETE FROM bloodrequest WHERE id=?";
 
 			try (PreparedStatement psmt = connection.prepareStatement(deleteQuery)) {
 				// Set the id as the parameter for the DELETE query
-				psmt.setInt(1, id);
+				psmt.setInt(1, getIdByContactNo(bloodRequest.getContactNo()));
 
 				// Execute the delete statement and get the number of affected rows
 				int rowAffected = psmt.executeUpdate();

@@ -50,9 +50,9 @@ public class RequestService {
 
 	}
         // Method to delete blood request
-	public boolean deleteBloodReq(int i) {
+	public boolean deleteBloodReq(BloodRequest bloodRequest) {
 
-		return BloodRequestDao.deleteBloodReq(i);
+		return BloodRequestDao.deleteBloodReq(bloodRequest);
 	}
 
 }
