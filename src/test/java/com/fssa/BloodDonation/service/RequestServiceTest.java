@@ -18,7 +18,7 @@ public class RequestServiceTest {
 
 	RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
 	
-	BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234567121",
+	BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234567133",
 			LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null);
 	@Test
 	public void createBloodReqTest() {
