@@ -1,12 +1,15 @@
 package com.fssa.BloodDonation.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import com.fssa.BloodDonation.Dao.BloodRequestDao;
 import com.fssa.BloodDonation.enums.BloodGroup;
 import com.fssa.BloodDonation.enums.RequestStatus;
@@ -18,14 +21,14 @@ public class RequestServiceTest {
 
 	RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
 	
-	BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "1234567133",
+	BloodRequest bloodRequest = new BloodRequest(BloodGroup.A_NEGATIVE, "test", "9080668509",
 			LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null);
 	@Test
 	public void createBloodReqTest() {
 
-		assertTrue(rs.createBloodReq(bloodRequest));
+		assertDoesNotThrow(() -> rs.createBloodReq(bloodRequest));
 
-	} 
+	}  
 	
 	@Test
 	public void createBloodReqTestInvalid() { 

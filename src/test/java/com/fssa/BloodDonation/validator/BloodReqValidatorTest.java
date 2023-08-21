@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import com.fssa.BloodDonation.enums.BloodGroup;
 import com.fssa.BloodDonation.enums.RequestStatus;
 import com.fssa.BloodDonation.model.BloodRequest;
-import com.fssa.BloodDonation.validator.BloodReqValidator;
+
 
 public class BloodReqValidatorTest {
 
@@ -36,7 +36,7 @@ public class BloodReqValidatorTest {
 		} catch (IllegalArgumentException e) {
 			// If an unexpected exception is caught, the test fails with an error message
 			fail("An unexpected exception was thrown: " + e.getMessage());
-		}
+		} 
 	}
 
 	@Test
