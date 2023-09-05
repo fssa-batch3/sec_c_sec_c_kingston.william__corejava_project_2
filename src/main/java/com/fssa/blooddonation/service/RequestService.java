@@ -1,10 +1,11 @@
-package com.fssa.BloodDonation.service;
+package com.fssa.blooddonation.service;
 
 import java.util.ArrayList;
 
-import com.fssa.BloodDonation.Dao.BloodRequestDao;
-import com.fssa.BloodDonation.model.BloodRequest;
-import com.fssa.BloodDonation.validator.BloodReqValidator;
+import com.fssa.blooddonation.Dao.BloodRequestDao;
+import com.fssa.blooddonation.exception.ValidationException;
+import com.fssa.blooddonation.model.BloodRequest;
+import com.fssa.blooddonation.validator.BloodReqValidator;
 
 public class RequestService {
 
@@ -15,24 +16,28 @@ public class RequestService {
 	public RequestService(BloodReqValidator bloodReqValidator, BloodRequestDao requestDao) {
 		this.requestDao = requestDao; // Initialize the DAO reference
 		this.bloodReqValidator = bloodReqValidator; // Initialize the validator reference
-	} 
+	}
 
-	// Method to create a blood request
-	public boolean createBloodReq(BloodRequest bloodRequest) throws IllegalArgumentException {
+	public RequestService() {
+		// TODO Auto-generated constructor stub
+	}
+
+	// Method to create a blood request   
+	public boolean createBloodReq(BloodRequest bloodRequest) throws ValidationException {
 		// Validate the blood request using the validator
 		if (bloodReqValidator.validateBloodRequest(bloodRequest)) {
 			// If validation succeeds, create the blood request using the DAO
 			requestDao.createBloodReq(bloodRequest);
-		}
-
+		} 
+ 
 		// Return true to indicate successful execution (may need more refined logic)
 		return false;
 	}
 
 	// Method to update a blood request
-	public boolean updateBloodReq(BloodRequest bloodRequest) {
+	public boolean updateBloodReq(BloodRequest bloodRequest) throws ValidationException {
 		// Validate the blood request using the validator
-		if (bloodReqValidator.validateBloodRequest(bloodRequest)) {
+		if (BloodReqValidator.validateBloodRequest(bloodRequest)) {
 			// If validation succeeds, update the blood request using the DAO
 			requestDao.updateBloodReqDao(bloodRequest);
 		}
@@ -49,10 +54,11 @@ public class RequestService {
 		// Return true to indicate successful execution (may need more refined logic)
 
 	}
-        // Method to delete blood request
-	public boolean deleteBloodReq(BloodRequest bloodRequest) {
 
-		return BloodRequestDao.deleteBloodReq(bloodRequest);
+	// Method to delete blood request
+	public boolean deleteBloodReq(int id) {
+
+		return BloodRequestDao.deleteBloodReq(id);
 	}
 
 }

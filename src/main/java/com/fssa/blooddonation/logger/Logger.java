@@ -1,4 +1,4 @@
-package com.fssa.BloodDonation.logger;
+package com.fssa.blooddonation.logger;
 
 //Define a public class named Logger.
 public class Logger {

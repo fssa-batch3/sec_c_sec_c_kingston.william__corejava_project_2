@@ -1,4 +1,4 @@
-package com.fssa.BloodDonation.Dao;
+package com.fssa.blooddonation.Dao;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,20 +7,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.fssa.BloodDonation.enums.BloodGroup;
-import com.fssa.BloodDonation.enums.RequestStatus;
-import com.fssa.BloodDonation.logger.Logger;
-import com.fssa.BloodDonation.model.BloodRequest;
-
+import com.fssa.blooddonation.enums.BloodGroup;
+import com.fssa.blooddonation.enums.RequestStatus;
+import com.fssa.blooddonation.logger.Logger;
+import com.fssa.blooddonation.model.BloodRequest;
 
 public class BloodRequestDao {
 	public static void createBloodReq(BloodRequest bloodCreate) {
 		// Write code here to get connection
- 
+
 		// Try-with-resources block to automatically close the connection
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create insert statement
-			String query = "INSERT INTO bloodrequest (bloodType,description,contactNo,reqDate,reqVerification,status,closedDate) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
+			String query = "INSERT INTO bloodrequest (bloodType,description,contactNo,reqDate,reqVerification,status,name, quantity) VALUES ( ?, ?, ?, ?, ?, ?, ?,?)";
 
 			// Create prepared statement for the insert query
 			try (PreparedStatement pst = connection.prepareStatement(query)) {
@@ -30,7 +29,7 @@ public class BloodRequestDao {
 				pst.setString(3, bloodCreate.getContactNo());
 
 				// Convert Java LocalDate to SQL Date and set as parameter
-				java.sql.Date reqDate = Date.valueOf(bloodCreate.getReqDate());
+				java.sql.Date reqDate = Date.valueOf(bloodCreate.getReqDate());//TODO//LocalDate.now().getDate()
 				pst.setDate(4, reqDate);
 
 				// Convert verification boolean to string and set as parameter
@@ -40,9 +39,13 @@ public class BloodRequestDao {
 				pst.setString(6, bloodCreate.getStatus().getValue());
 
 				// Set null value for closedDate parameter
-				pst.setDate(7, null);
+				
+				pst.setString(7, bloodCreate.getName());
+				pst.setInt(8, bloodCreate.getQuantity());
+				
 
 				// Execute the insert statement
+
 				pst.executeUpdate();
 
 				// Close the connection
@@ -54,7 +57,7 @@ public class BloodRequestDao {
 
 		} catch (SQLException e) {
 			// Print any SQLException error messages
-			System.out.println(e.getMessage());
+			Logger.info(e.getMessage());
 		}
 	}
 
@@ -64,7 +67,7 @@ public class BloodRequestDao {
 		// Try-with-resources block to automatically close the connection
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create update statement
-			String query = "UPDATE bloodrequest SET bloodType = ?, description = ?, contactNo = ?, reqDate = ?, reqVerification = ?, status = ? WHERE id = ?";
+			String query = "UPDATE bloodrequest SET bloodType = ?, description = ?, contactNo = ?, reqDate = ?, reqVerification = ?, status = ?, name=?, quantity=? WHERE id = ?";
 
 			// Create prepared statement for the update query
 			try (PreparedStatement pst = connection.prepareStatement(query)) {
@@ -82,9 +85,10 @@ public class BloodRequestDao {
 
 				// Set status value as parameter
 				pst.setString(6, bloodUpdate.getStatus().getValue());
-
+				pst.setString(7, bloodUpdate.getName());
+				pst.setInt(8, bloodUpdate.getQuantity());
 				// Set ID value as parameter for the WHERE clause
-				pst.setInt(7, getIdByContactNo(bloodUpdate.getContactNo())); 
+				pst.setInt(9, getIdByContactNo(bloodUpdate.getContactNo()));
 
 				// Execute the update statement
 				pst.executeUpdate();
@@ -97,7 +101,7 @@ public class BloodRequestDao {
 			}
 		} catch (SQLException e) {
 			// Print any SQLException error messages
-			System.out.println(e.getMessage());
+			Logger.info(e.getMessage());
 		}
 	}
 
@@ -121,13 +125,13 @@ public class BloodRequestDao {
 				}
 				// Close the connection
 				connection.close();
-				Logger.info("Fetched id successfully by contact no "+no +" "+id);
+				Logger.info("Fetched id successfully by contact no " + no + " " + id);
 				return id;
 
 			}
 		} catch (SQLException e) {
 			// Print any SQLException error messages
-			System.out.println(e.getMessage());
+			Logger.info(e.getMessage());
 		}
 		return 0;
 	}
@@ -148,6 +152,8 @@ public class BloodRequestDao {
 
 						// Set properties of the BloodRequest object using data from the result set
 						request.setId(rs.getInt("id"));
+						request.setName(rs.getString("name"));
+						request.setQuantity(rs.getInt("quantity"));
 						request.setBloodtype(BloodGroup.valueToEnumMapping(rs.getString("bloodType")));
 						request.setDescription(rs.getString("description"));
 						request.setContactNo(rs.getString("contactNo"));
@@ -174,14 +180,14 @@ public class BloodRequestDao {
 	}
 
 //	delete
-	public static boolean deleteBloodReq(BloodRequest bloodRequest) throws IllegalArgumentException {
+	public static boolean deleteBloodReq(int id) throws IllegalArgumentException {
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create the DELETE query
 			String deleteQuery = "DELETE FROM bloodrequest WHERE id=?";
 
 			try (PreparedStatement psmt = connection.prepareStatement(deleteQuery)) {
 				// Set the id as the parameter for the DELETE query
-				psmt.setInt(1, getIdByContactNo(bloodRequest.getContactNo()));
+				psmt.setInt(1, id);
 
 				// Execute the delete statement and get the number of affected rows
 				int rowAffected = psmt.executeUpdate();
