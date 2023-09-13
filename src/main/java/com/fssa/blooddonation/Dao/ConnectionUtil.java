@@ -25,5 +25,10 @@ public class ConnectionUtil {
 		}
 		return con;
 	}
+	
+	public static void main(String[] args) {
+		Connection con =getConnection();
+		System.out.println("jhgv");
+	}
 
 }

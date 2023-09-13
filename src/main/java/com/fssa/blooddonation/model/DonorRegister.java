@@ -6,10 +6,9 @@ import com.fssa.blooddonation.enums.DonorGender;
 import com.fssa.blooddonation.enums.DonorState;
 
 public class DonorRegister {
-	
 	private int userId;
 	private String name;
-	private String MobileNo;
+	private String mobileNo;
 	private DonorBloodGroup bloodtype;
 	private String address;
 	private DonorState state;
@@ -17,9 +16,28 @@ public class DonorRegister {
 	private int age;
 	private String emailId;
 	private DonorGender gender;
+	
+	
+	public DonorRegister(String name, String mobileNo, DonorBloodGroup bloodtype, String address,
+			DonorState state, DonorDistrict district, int age, String emailId, DonorGender gender) {
+		this.name= name;
+		this.mobileNo=mobileNo;
+		this.bloodtype=bloodtype;
+		this.address=address;
+		this.state=state;
+		this.district=district;
+		this.age=age;
+		this.emailId=emailId;
+		this.gender=gender;
+		
+	}
+	public DonorRegister() {
+		
+	}
+	
 	@Override
 	public String toString() {
-		return "DonorRequest [userId=" + userId + ", name=" + name + ", MobileNo=" + MobileNo + ", bloodtype="
+		return "DonorRequest [userId=" + userId + ", name=" + name + ", MobileNo=" + mobileNo + ", bloodtype="
 				+ bloodtype + ", address=" + address + ", state=" + state + ", district=" + district + ", age=" + age
 				+ ", emailId=" + emailId + ", gender=" + gender + "]";
 	}
@@ -36,10 +54,10 @@ public int getUserId() {
 		this.name = name;
 	}
 	public String getMobileNo() {
-		return MobileNo;
+		return mobileNo;
 	}
 	public void setMobileNo(String mobileNo) {
-		MobileNo = mobileNo;
+		this.mobileNo = mobileNo;
 	}
 	public DonorBloodGroup getBloodtype() {
 		return bloodtype;
@@ -63,7 +81,7 @@ public int getUserId() {
 		return district;
 	}
 	public void setDistrict(DonorDistrict district) {
-		district = district;
+		this.district = district;
 	}
 	public int getAge() {
 		return age;

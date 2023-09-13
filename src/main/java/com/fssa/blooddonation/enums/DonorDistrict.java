@@ -1,7 +1,8 @@
 package com.fssa.blooddonation.enums;
 
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Arrays;
 
 public enum DonorDistrict {
     CHENNAI("Chennai"),
@@ -28,17 +29,30 @@ public enum DonorDistrict {
     NILGIRIS("The Nilgiris"),
     ARIYALUR("Ariyalur");
 
-    private final String districtName;
+	public final String value;
 
-    DonorDistrict(String districtName) {
-        this.districtName = districtName;
-    }
+	// Constructor to initialize the enum constants with values
+	DonorDistrict(String value) {
+		this.value = value;
+	}
 
-    public String getDistrictName() {
-        return districtName;
-    }
+	// Getter method to retrieve the value of the enum constant
+	public String getValue() {
+		return value;
+	};
 
-    public static List<DonorDistrict> getAllDistricts() {
-        return Arrays.asList(DonorDistrict.values());
-    }
+	// Static method to map a string value to the corresponding enum constant
+	public static DonorDistrict valueToEnumMapping(String value) {
+		// Create a mapping of values to enum constants using a HashMap
+		HashMap<String, DonorDistrict> valueToEnumMapping = new HashMap<String, DonorDistrict>();
+
+		// Iterate through all BloodGroup enum constants and populate the mapping
+		for (DonorDistrict bloodGroup : DonorDistrict.values()) {
+			valueToEnumMapping.put(bloodGroup.getValue(), bloodGroup);
+		}
+
+		// Return the enum constant corresponding to the provided value
+		return valueToEnumMapping.get(value);
+
+	}
 }

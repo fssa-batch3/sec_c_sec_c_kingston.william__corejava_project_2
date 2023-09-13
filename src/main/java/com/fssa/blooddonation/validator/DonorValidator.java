@@ -134,11 +134,11 @@ public class DonorValidator {
 	public static boolean validateDistrict(DonorDistrict district) throws ValidationException {
 	    // Assuming DonorDistrict is an enum representing valid districts
 	    boolean isValidDistrict = false;
-
+	    System.out.println(district);
 	    // Iterate through all possible values of the DonorDistrict enum using a for-each loop.
 	    for (DonorDistrict validDistrict : DonorDistrict.values()) {
 	        // Check if the value of the current enum element "validDistrict" is equal to the "district" from the input.
-	        if (validDistrict == district) {
+	        if (validDistrict.equals(district)) {
 	            isValidDistrict = true;
 	            break;
 	        }
@@ -188,11 +188,11 @@ public class DonorValidator {
 
 	    // Create a boolean flag to check if the provided gender is valid
 	    boolean isValidGender = false;
-
+	    System.out.println(gender);
 	    // Iterate through all possible values of the DonorGender enum using a for-each loop
 	    for (DonorGender validGender : DonorGender.values()) {
 	        // Check if the value of the current enum element "validGender" is equal to the "gender" from the input
-	        if (validGender == gender) {
+	        if (validGender.equals(gender)) {
 	            isValidGender = true;
 	            break; // Exit the loop when a valid gender is found
 	        }

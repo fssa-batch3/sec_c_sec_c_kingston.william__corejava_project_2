@@ -21,6 +21,8 @@ class BloodReqValidatorTest {
 	void testValidBloodRequest() throws ValidationException {
 		BloodRequest validRequest = new BloodRequest();
 		validRequest.setId(2);
+		validRequest.setName("name");
+		validRequest.setQuantity(5);
 		validRequest.setBloodtype(BloodGroup.A_POSITIVE); // Assuming BloodGroup enum exists
 		validRequest.setDescription("Valid description");
 		validRequest.setContactNo("1234567890");
@@ -31,7 +33,7 @@ class BloodReqValidatorTest {
 
 	@Test
 	void testValidId() {
-		try {
+		try { 
 			// Test a valid ID (0) using the validateId method
 			assertTrue(BloodReqValidator.validateId(5));
 		} catch (ValidationException e) {
