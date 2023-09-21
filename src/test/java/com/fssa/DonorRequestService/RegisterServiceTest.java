@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import com.fssa.blooddonation.Dao.DonorRegisterDao;
 import com.fssa.blooddonation.enums.DonorBloodGroup;
 import com.fssa.blooddonation.enums.DonorDistrict;
-import com.fssa.blooddonation.enums.DonorGender;
+import com.fssa.blooddonation.enums.Gender;
 import com.fssa.blooddonation.enums.DonorState;
 import com.fssa.blooddonation.exception.ValidationException;
 import com.fssa.blooddonation.logger.Logger;
@@ -25,7 +25,7 @@ Logger logger = new Logger();
 DonorRequestService rs = new DonorRequestService(new DonorValidator(), new DonorRegisterDao());
 
 DonorRegister donorRegister= new DonorRegister("Aravind", "9941568557", DonorBloodGroup.A_NEGATIVE, "#166,kavangarai retti street", DonorState.TAMIL_NADU, DonorDistrict.CHENNAI, 21, 
-		                      "aravind@gmail.com",DonorGender.MALE);
+		                      "aravind@gmail.com",Gender.MALE);
 
 @Test
 void createDonorRegTest() {

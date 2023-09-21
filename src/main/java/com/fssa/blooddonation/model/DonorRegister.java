@@ -2,7 +2,7 @@ package com.fssa.blooddonation.model;
 
 import com.fssa.blooddonation.enums.DonorBloodGroup;
 import com.fssa.blooddonation.enums.DonorDistrict;
-import com.fssa.blooddonation.enums.DonorGender;
+import com.fssa.blooddonation.enums.Gender;
 import com.fssa.blooddonation.enums.DonorState;
 
 public class DonorRegister {
@@ -15,11 +15,11 @@ public class DonorRegister {
 	private DonorDistrict district;
 	private int age;
 	private String emailId;
-	private DonorGender gender;
+	private Gender gender;
 	
 	
 	public DonorRegister(String name, String mobileNo, DonorBloodGroup bloodtype, String address,
-			DonorState state, DonorDistrict district, int age, String emailId, DonorGender gender) {
+			DonorState state, DonorDistrict district, int age, String emailId, Gender gender) {
 		this.name= name;
 		this.mobileNo=mobileNo;
 		this.bloodtype=bloodtype;
@@ -95,10 +95,10 @@ public int getUserId() {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public DonorGender getGender() {
+	public Gender getGender() {
 		return gender;
 	}
-	public void setGender(DonorGender gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 

@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 import com.fssa.blooddonation.enums.BloodGroup;
 import com.fssa.blooddonation.enums.DonorBloodGroup;
 import com.fssa.blooddonation.enums.DonorDistrict;
-import com.fssa.blooddonation.enums.DonorGender;
+import com.fssa.blooddonation.enums.Gender;
 import com.fssa.blooddonation.enums.DonorState;
 import com.fssa.blooddonation.exception.ValidationException;
 import com.fssa.blooddonation.model.DonorRegister;
@@ -183,14 +183,14 @@ public class DonorValidator {
 	    return true;
 	}
 	
-	public static boolean validateGender(DonorGender gender) throws ValidationException {
+	public static boolean validateGender(Gender gender) throws ValidationException {
 	    // Assuming DonorGender is an enum representing valid genders
 
 	    // Create a boolean flag to check if the provided gender is valid
 	    boolean isValidGender = false;
 	    System.out.println(gender);
 	    // Iterate through all possible values of the DonorGender enum using a for-each loop
-	    for (DonorGender validGender : DonorGender.values()) {
+	    for (Gender validGender : Gender.values()) {
 	        // Check if the value of the current enum element "validGender" is equal to the "gender" from the input
 	        if (validGender.equals(gender)) {
 	            isValidGender = true;

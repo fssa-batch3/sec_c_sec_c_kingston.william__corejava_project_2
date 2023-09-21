@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import com.fssa.blooddonation.enums.BloodGroup;
 import com.fssa.blooddonation.enums.DonorBloodGroup;
 import com.fssa.blooddonation.enums.DonorDistrict;
-import com.fssa.blooddonation.enums.DonorGender;
+import com.fssa.blooddonation.enums.Gender;
 import com.fssa.blooddonation.enums.DonorState;
 import com.fssa.blooddonation.logger.Logger;
 import com.fssa.blooddonation.model.DonorRegister;
@@ -98,7 +98,7 @@ public class DonorRegisterDao {
 					donorRegister.setDistrict(DonorDistrict.valueToEnumMapping(rs.getString("district")));
 					donorRegister.setAge(rs.getInt("age"));
 					donorRegister.setEmailId(rs.getString("email_id"));
-					donorRegister.setGender(DonorGender.valueToEnumMapping(rs.getString("gender")));
+					donorRegister.setGender(Gender.valueToEnumMapping(rs.getString("gender")));
 					donorDetails.add(donorRegister);
 				}
 				
