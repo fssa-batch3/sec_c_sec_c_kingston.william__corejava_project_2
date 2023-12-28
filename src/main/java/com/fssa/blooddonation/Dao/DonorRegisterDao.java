@@ -71,8 +71,7 @@ public class DonorRegisterDao {
 		}
 		return 0;
 	}
-	
-	
+
 	public static ArrayList<DonorRegister> getAllDonorDetails() {
 
 		// Try-with-resources block to automatically close the connection
@@ -82,17 +81,16 @@ public class DonorRegisterDao {
 
 			// Create prepared statement for the update query
 			try (PreparedStatement pst = connection.prepareStatement(query)) {
-				
 
 				ResultSet rs = pst.executeQuery();
 				ArrayList<DonorRegister> donorDetails = new ArrayList<DonorRegister>();
-	
+
 				while (rs.next()) {
-					DonorRegister donorRegister= new DonorRegister();
-					 
+					DonorRegister donorRegister = new DonorRegister();
+
 					donorRegister.setName(rs.getString("name"));
 					donorRegister.setMobileNo(rs.getString("mobile_number"));
-					donorRegister.setBloodtype(DonorBloodGroup.valueToEnumMapping(rs.getString("blood_group")) );
+					donorRegister.setBloodtype(DonorBloodGroup.valueToEnumMapping(rs.getString("blood_group")));
 					donorRegister.setAddress(rs.getString("address"));
 					donorRegister.setState(DonorState.valueToEnumMapping(rs.getString("state")));
 					donorRegister.setDistrict(DonorDistrict.valueToEnumMapping(rs.getString("district")));
@@ -101,8 +99,7 @@ public class DonorRegisterDao {
 					donorRegister.setGender(Gender.valueToEnumMapping(rs.getString("gender")));
 					donorDetails.add(donorRegister);
 				}
-				
-			
+
 				return donorDetails;
 
 			}
@@ -113,6 +110,47 @@ public class DonorRegisterDao {
 		return null;
 
 	}
+
+	public static ArrayList<DonorRegister> getAllDonorDetailsByEmail(String email) {
+
+		// Try-with-resources block to automatically close the connection
+		try (Connection connection = ConnectionUtil.getConnection()) {
+			// Create update statement
+			String query = "SELECT * FROM donor where email_id=?";
+
+			// Create prepared statement for the update query
+			try (PreparedStatement pst = connection.prepareStatement(query)) {
+
+				pst.setString(1, email);
+				ResultSet rs = pst.executeQuery();
+				ArrayList<DonorRegister> donorDetails = new ArrayList<DonorRegister>();
+
+				while (rs.next()) {
+					DonorRegister donorRegister = new DonorRegister();
+
+					donorRegister.setName(rs.getString("name"));
+					donorRegister.setMobileNo(rs.getString("mobile_number"));
+					donorRegister.setBloodtype(DonorBloodGroup.valueToEnumMapping(rs.getString("blood_group")));
+					donorRegister.setAddress(rs.getString("address"));
+					donorRegister.setState(DonorState.valueToEnumMapping(rs.getString("state")));
+					donorRegister.setDistrict(DonorDistrict.valueToEnumMapping(rs.getString("district")));
+					donorRegister.setAge(rs.getInt("age"));
+					donorRegister.setEmailId(rs.getString("email_id"));
+					donorRegister.setGender(Gender.valueToEnumMapping(rs.getString("gender")));
+					donorDetails.add(donorRegister);
+				}
+
+				return donorDetails;
+
+			}
+		} catch (SQLException e) {
+			// Print any SQLException error messages
+			Logger.info(e.getMessage());
+		}
+		return null;
+
+	}
+
 	public static boolean deleteDonorReg(String email) throws IllegalArgumentException {
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create the DELETE query

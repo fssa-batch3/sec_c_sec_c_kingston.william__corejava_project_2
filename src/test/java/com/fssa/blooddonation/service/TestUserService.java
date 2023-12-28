@@ -13,42 +13,39 @@ import com.fssa.blooddonation.model.User;
 import com.fssa.blooddonation.validator.UserValidator;
 
 public class TestUserService {
-	UserService userService = new UserService(new UserValidator(), new UserDao());
-	
-	 
-	
 
-	@Test
-	public void testAddUser() {
-		
-		
+	static User validateUSer() {
 		User user = new User();
-		user.setName("Kingston");
+	
+		user.setName("helloguys");
 		user.setEmail("kingston@gmail.com");
 		user.setBloodGroup(BloodGroup.A_NEGATIVE);
 		user.setPhoneNo("6383705215");
 		user.setGender(Gender.MALE);
 		user.setPassWord("King@1234");
-		
-		try { 
-			Assertions.assertTrue(userService.addUser(user));
+		return user;
+
+	}
+
+	UserService userService = new UserService(new UserValidator(), new UserDao());
+
+	@Test
+	public void testAddUser() {
+ 
+		try {
+			Assertions.assertTrue(userService.addUser(validateUSer()));
 		} catch (SQLException | ValidationException e) {
 			Assertions.fail();
 			e.printStackTrace();
 		}
-		
+
 	}
+
+	@Test
+	void testValidUpdateUser() throws SQLException, ValidationException {
+		TestUserService testUser = new TestUserService();
+
+		Assertions.assertTrue(UserService.updateUser(validateUSer()));
+	}
+
 }
-
-//signup srvlet
-
-
-//dopost method
-//User user = new User();
-//user.setName(request.getParameter("name"));
-//user.setEmail("kingston@gmail.com");
-//user.setBloodGroup(BloodGroup.A_NEGATIVE);
-//user.setPhoneNo("6383705215");
-//user.setGender(Gender.MALE);
-//user.setPassWord("King@1234");
-//userService.addUser(user)

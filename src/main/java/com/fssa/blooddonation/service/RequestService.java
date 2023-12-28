@@ -22,16 +22,16 @@ public class RequestService {
 		// TODO Auto-generated constructor stub
 	}
 
-	// Method to create a blood request   
+	// Method to create a blood request
 	public boolean createBloodReq(BloodRequest bloodRequest) throws ValidationException {
 		// Validate the blood request using the validator
 		if (bloodReqValidator.validateBloodRequest(bloodRequest)) {
 			// If validation succeeds, create the blood request using the DAO
 			requestDao.createBloodReq(bloodRequest);
-		} 
- 
+		}
+
 		// Return true to indicate successful execution (may need more refined logic)
-		return false; 
+		return false;
 	}
 
 	// Method to update a blood request
@@ -53,6 +53,12 @@ public class RequestService {
 
 		// Return true to indicate successful execution (may need more refined logic)
 
+	}
+	// Method to get blood request by emailid
+
+	public ArrayList<BloodRequest> getBloodReqByEmail(String email) throws ValidationException {
+
+		return requestDao.getAllBloodRequestByUserEmail(email);
 	}
 
 	// Method to delete blood request

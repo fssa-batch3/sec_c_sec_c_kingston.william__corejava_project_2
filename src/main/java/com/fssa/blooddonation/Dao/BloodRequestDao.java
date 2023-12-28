@@ -19,7 +19,7 @@ public class BloodRequestDao {
 		// Try-with-resources block to automatically close the connection
 		try (Connection connection = ConnectionUtil.getConnection()) {
 			// Create insert statement
-			String query = "INSERT INTO bloodrequest (bloodType,description,contactNo,reqDate,reqVerification,status,name, quantity) VALUES ( ?, ?, ?, ?, ?, ?, ?,?)";
+			String query = "INSERT INTO bloodrequest (bloodType,description,contactNo,reqDate,reqVerification,status,name, quantity,user_id) VALUES ( ?, ?, ?, ?, ?, ?, ?,?,?)";
 
 			// Create prepared statement for the insert query
 			try (PreparedStatement pst = connection.prepareStatement(query)) {
@@ -29,7 +29,7 @@ public class BloodRequestDao {
 				pst.setString(3, bloodCreate.getContactNo());
 
 				// Convert Java LocalDate to SQL Date and set as parameter
-				java.sql.Date reqDate = Date.valueOf(bloodCreate.getReqDate());//TODO//LocalDate.now().getDate()
+				java.sql.Date reqDate = Date.valueOf(bloodCreate.getReqDate());// TODO//LocalDate.now().getDate()
 				pst.setDate(4, reqDate);
 
 				// Convert verification boolean to string and set as parameter
@@ -39,10 +39,10 @@ public class BloodRequestDao {
 				pst.setString(6, bloodCreate.getStatus().getValue());
 
 				// Set null value for closedDate parameter
-				
+
 				pst.setString(7, bloodCreate.getName());
 				pst.setInt(8, bloodCreate.getQuantity());
-				
+				pst.setInt(9, bloodCreate.getUserId());
 
 				// Execute the insert statement
 
@@ -169,6 +169,49 @@ public class BloodRequestDao {
 						bloodReqList.add(request);
 					}
 
+					// Return the ArrayList containing BloodRequest objects
+					return bloodReqList;
+				}
+			}
+		} catch (SQLException e) {
+			// Throw an exception with an error message if a SQL error occurs
+			throw new IllegalArgumentException("Error while reading bloodrequest: " + e.getMessage());
+		}
+	}
+
+	public static ArrayList<BloodRequest> getAllBloodRequestByUserEmail(String email) {
+		try (Connection connection = ConnectionUtil.getConnection()) {
+			// SQL query to select all rows from the bloodrequest table
+			String selectQuery = "SELECT * FROM bloodrequest where user_id=?";
+			try (PreparedStatement psmt = connection.prepareStatement(selectQuery)) {
+				int id = UserDao.getUserIdByEmail(email);
+				System.out.println(" email : " + email + "user id : " + id);
+				psmt.setInt(1, id);
+				try (ResultSet rs = psmt.executeQuery()) {
+					// Create an ArrayList to store BloodRequest objects
+					ArrayList<BloodRequest> bloodReqList = new ArrayList<BloodRequest>();
+
+					// Loop through the result set to retrieve each row's data
+					while (rs.next()) {
+						// Create a new BloodRequest object for each row
+						BloodRequest request = new BloodRequest();
+
+						// Set properties of the BloodRequest object using data from the result set
+						request.setId(rs.getInt("id"));
+						request.setName(rs.getString("name"));
+						request.setQuantity(rs.getInt("quantity"));
+						request.setBloodtype(BloodGroup.valueToEnumMapping(rs.getString("bloodType")));
+						request.setDescription(rs.getString("description"));
+						request.setContactNo(rs.getString("contactNo"));
+						request.setReqDate(rs.getDate("reqDate").toLocalDate());
+						// Convert "reqVerification" column to boolean value
+						request.setVerification(rs.getString("reqVerification").equals("True") ? true : false);
+						// Set the status property using data from the result set
+						request.setStatus(RequestStatus.valueToEnumMapping(rs.getString("status")));
+
+						// Add the populated BloodRequest object to the ArrayList
+						bloodReqList.add(request);
+					}
 					// Return the ArrayList containing BloodRequest objects
 					return bloodReqList;
 				}

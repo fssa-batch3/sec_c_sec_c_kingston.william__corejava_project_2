@@ -28,8 +28,8 @@ class RequestServiceTest {
 	// BloodRequestDao instance.
 	RequestService rs = new RequestService(new BloodReqValidator(), new BloodRequestDao());
 
-	BloodRequest bloodRequest = new BloodRequest("raj", 1, BloodGroup.A_NEGATIVE,  "need 7 unit", "7383705333",
-			LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null);
+	BloodRequest bloodRequest = new BloodRequest("santhanam", 1, BloodGroup.A_NEGATIVE,  "need 7 unit", "7383705355",
+			LocalDate.parse("2020-10-12"), true, RequestStatus.OPEN, null,1);
 	// This test method checks the behavior of the createBloodReq method of the
 	// RequestService class.
 
@@ -46,7 +46,7 @@ class RequestServiceTest {
 		// Creating a sample BloodRequest instance with invalid details for testing
 		// purposes.
 		BloodRequest bloodRequest = new BloodRequest("kingsman", 1, BloodGroup.A_NEGATIVE, "test", "1234562322",
-				LocalDate.parse("2023-10-12"), true, RequestStatus.OPEN, null);
+				LocalDate.parse("2023-10-12"), true, RequestStatus.OPEN, null,1);
 
 		// Using an assertion to ensure that a ValidationException is thrown when
 		// attempting to create an invalid blood request.
@@ -59,7 +59,7 @@ class RequestServiceTest {
 	@Test
 	void updateBloodReq() throws ValidationException {
 		BloodRequest bloodRequest = new BloodRequest("Rahul",20 ,BloodGroup.O_POSITIVE, "my friend was in serious condition need AB+ blood.", "9445708908",
-				LocalDate.parse("2022-10-12"), true, RequestStatus.OPEN, null);
+				LocalDate.parse("2022-10-12"), true, RequestStatus.OPEN, null,1);
 		// Using an assertion to ensure that the updateBloodReq method returns true for
 		// a successful update.
 		assertTrue(rs.updateBloodReq(bloodRequest));
@@ -88,4 +88,5 @@ class RequestServiceTest {
 		assertTrue(rs.deleteBloodReq(4));
 
 	}
+
 }

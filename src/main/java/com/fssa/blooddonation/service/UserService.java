@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import com.fssa.blooddonation.Dao.UserDao;
 import com.fssa.blooddonation.exception.ValidationException;
+import com.fssa.blooddonation.logger.Logger;
 import com.fssa.blooddonation.model.User;
 import com.fssa.blooddonation.validator.UserValidator;
 
@@ -16,6 +17,12 @@ public class UserService {
 		this.userDAO= userDAO;
 	}
 	
+
+
+	public UserService() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 
 	public boolean addUser(User user) throws SQLException, ValidationException  {
@@ -32,6 +39,25 @@ public class UserService {
 		}
 
 		return user;
+	}
+	
+//	update 
+	public static boolean updateUser(User user) throws SQLException, ValidationException {
+		// Check if the user is valid based on the userValidator
+		
+		if (!UserDao.isUserExist(user)) {
+
+			throw new SQLException("User Not exists");
+		}
+		if (UserValidator.validateName(user.getName()) && UserValidator.validatePhoneNo(user.getPhoneNo())
+				&& UserValidator.validateBloodType(user.getBloodGroup()) && UserValidator.validateEmail(user.getEmail()) && UserValidator.validateGender(user.getGender())) {
+			// Check if the user already exists in the database
+			UserDao.updateUser(user);
+			Logger.info("User is updated to DB successfully!");
+			return true;
+		}
+
+		return false; 
 	}
 }
 	
